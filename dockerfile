@@ -1,13 +1,11 @@
-FROM node:10-alpine
-
-WORKDIR /usr/src/app
-
-COPY package.json  ./
-
-COPY app.js ./
-
-RUN npm install
-
+FROM node:8
+ENV PORT 8080
 EXPOSE 8080
 
-CMD [ "node", "app.js" ]
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package.json .
+RUN npm install
+COPY . .
+
+CMD ["npm", "start"]
